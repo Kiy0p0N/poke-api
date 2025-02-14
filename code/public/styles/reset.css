@@ -1,0 +1,86 @@
+/* Reset CSS total - Remove todos os estilos padrão */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  background: none;
+  font-size: 100%;
+  font-weight: normal;
+  text-decoration: none;
+  outline: none;
+  list-style: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remover estilos padrão de cabeçalho */
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: normal;
+}
+
+/* Reset de botões */
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+/* Reset de inputs e textareas */
+input, textarea, select {
+  all: unset;
+  width: 100%;
+}
+
+/* Remover comportamento estranho de formatação */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Remover estilos padrão de citação */
+blockquote, q {
+  quotes: none;
+}
+
+blockquote::before, blockquote::after,
+q::before, q::after {
+  content: '';
+}
+
+/* Remover estilos de links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Imagens responsivas */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Garantir altura mínima da página */
+html, body {
+  height: 100%;
+  font-size: 16px;
+  font-family: sans-serif;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+/* Reset de SVGs */
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  fill: currentColor;
+}
+
+/* Remover estilos padrão do iframe */
+iframe {
+  border: 0;
+}
