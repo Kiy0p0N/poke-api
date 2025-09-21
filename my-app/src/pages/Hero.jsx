@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { randomPokemon, nextPokemon, prevPokemon } from "../services/pokeapi";
+import { randomPokemon } from "../services/pokeapi";
 import Pokecard from "../components/Pokecard";
 
 function Hero() {

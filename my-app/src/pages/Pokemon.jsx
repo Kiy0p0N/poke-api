@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPokemon } from "../services/pokeapi";
+import { fetchPokemon } from "../services/pokeapi";
 import Pokecard from "../components/Pokecard";
 
 function Pokemon() {
@@ -10,18 +10,15 @@ function Pokemon() {
   useEffect(() => {
     async function fetchData() {
       if (!name) return;
-      const currentPokemon = await getPokemon(name);
-      setPokemon(currentPokemon);
+      const response = await fetchPokemon(name);
+      setPokemon(response);
     }
     fetchData();
   }, [name]);
 
-  if (!pokemon)
-    return (
-      <div className="flex h-screen w-full items-center justify-center bg-black"></div>
-    );
+  if (!pokemon) return;
 
-  return <Pokecard pokemon={pokemon} />;
+  return <Pokecard data={pokemon} />;
 }
 
 export default Pokemon;
