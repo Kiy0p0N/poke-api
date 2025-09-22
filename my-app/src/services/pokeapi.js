@@ -62,7 +62,7 @@ export async function getSpecies(url) {
  */
 export async function randomPokemon() {
   const randomId = Math.floor(Math.random() * 1025) + 1;
-  return getPokemon(randomId);
+  return fetchPokemon(randomId);
 }
 
 /**

@@ -7,8 +7,8 @@ function Hero() {
 
   useEffect(() => {
     async function fetchData() {
-      const currentPokemon = await randomPokemon();
-      setPokemon(currentPokemon);
+      const response = await randomPokemon();
+      setPokemon(response);
     }
     fetchData();
   }, []);
@@ -19,7 +19,7 @@ function Hero() {
       <div className="flex h-screen w-full items-center justify-center bg-black"></div>
     );
 
-  return <Pokecard pokemon={pokemon} />;
+  return <Pokecard data={pokemon} />;
 }
 
 export default Hero;

@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { nextPokemon, prevPokemon } from "../services/pokeapi";
 import PokemonTypes from "./PokemonTypes";
+import PokeImg from "./PokeImg";
+import PokeStats from "./PokeStats";
 
 function Pokecard({ data }) {
+  console.log(data);
   const [next, setNext] = useState(null);
   const [prev, setPrev] = useState(null);
 
@@ -59,32 +62,41 @@ function Pokecard({ data }) {
         <div className="flex h-96 w-full justify-center bg-white">
           {/* Pokemon image */}
           <div className="flex flex-1/2 justify-end p-2">
-            <div className="relative w-96 rounded-2xl bg-zinc-100">
-              <img
-                src={
-                  data.pokemon.sprites?.other?.["official-artwork"]
-                    ?.front_default
-                }
-                alt={data.pokemon.name}
-                className="absolute bottom-[-30px] object-cover drop-shadow-2xl drop-shadow-black"
-              />
-            </div>
+            <PokeImg sprites={data.pokemon.sprites} name={data.pokemon.name} />
           </div>
 
-          {/* Pokemon informations */}
-          <div className="flex min-h-full flex-1/2 justify-start p-2">
-            <div className="flex h-full w-md flex-col gap-3 overflow-x-hidden overflow-y-auto">
+          {/* Pokémon Information Section */}
+          <div className="flex w-full justify-start p-4 md:w-1/2">
+            <div className="flex max-h-[75vh] w-full flex-col gap-4 overflow-y-auto rounded-2xl bg-white/80 p-4 shadow-lg backdrop-blur-md">
               {/* Flavor Text */}
-              <div>
-                <p className="rounded-lg bg-zinc-500 p-2 text-center text-white italic">
-                  {data.species.englishFlavor}
-                </p>
-              </div>
+              <p className="rounded-xl bg-gradient-to-r from-zinc-600 to-zinc-500 p-3 text-center text-white italic shadow">
+                {data.species.englishFlavor}
+              </p>
 
               {/* Type */}
-              <div className="flex gap-3">
-                <h3>Type:</h3>
-                {<PokemonTypes types={data.pokemon.types} />}
+              <div className="flex items-center gap-3">
+                <h3 className="font-semibold text-zinc-700">Type:</h3>
+                <PokemonTypes types={data.pokemon.types} />
+              </div>
+
+              {/* Height */}
+              <div className="flex items-center gap-3">
+                <h3 className="font-semibold text-zinc-700">Height:</h3>
+                <p className="text-zinc-800">{data.pokemon.height / 10} m</p>
+              </div>
+
+              {/* Weight */}
+              <div className="flex items-center gap-3">
+                <h3 className="font-semibold text-zinc-700">Weight:</h3>
+                <p className="text-zinc-800">{data.pokemon.weight / 10} kg</p>
+              </div>
+
+              {/* Stats */}
+              <div className="rounded-xl bg-zinc-100 p-3 shadow-inner">
+                <h3 className="mb-2 text-center font-semibold text-zinc-700">
+                  Base Stats
+                </h3>
+                <PokeStats stats={data.pokemon.stats} />
               </div>
             </div>
           </div>
