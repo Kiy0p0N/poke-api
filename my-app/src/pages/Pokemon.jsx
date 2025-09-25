@@ -16,7 +16,11 @@ function Pokemon() {
     fetchData();
   }, [name]);
 
-  if (!pokemon) return;
+  if (!pokemon) return (
+    <div>
+      <p>Pokemon <span className="uppercase font-bold">{name}</span> not found</p>
+    </div>
+  );
 
   return <Pokecard data={pokemon} />;
 }

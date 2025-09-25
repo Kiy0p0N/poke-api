@@ -3,12 +3,26 @@ import { nextPokemon, prevPokemon } from "../services/pokeapi";
 import PokemonTypes from "./PokemonTypes";
 import PokeImg from "./PokeImg";
 import PokeStats from "./PokeStats";
+import PokeEvolution from "./PokeEvolution";
 
+/**
+ * Pokecard Component
+ *
+ * Displays a detailed Pokémon information card.
+ * Includes image, types, flavor text, height, weight,
+ * habitat, stats (radar chart), and evolution chain.
+ * Also provides navigation to previous and next Pokémon.
+ */
 function Pokecard({ data }) {
   console.log(data);
+
+  // State to store next and previous Pokémon data
   const [next, setNext] = useState(null);
   const [prev, setPrev] = useState(null);
 
+  /**
+   * useEffect - Fetches next and previous Pokémon when the current Pokémon data changes.
+   */
   useEffect(() => {
     if (!data) return;
 
@@ -23,6 +37,7 @@ function Pokecard({ data }) {
     fetchNeighbors();
   }, [data]);
 
+  // If next or previous Pokémon are not yet loaded, render empty div to avoid errors
   if (!next || !prev) {
     return <div></div>;
   }
@@ -31,8 +46,9 @@ function Pokecard({ data }) {
     <div className="z-10 h-screen w-full bg-zinc-800 px-40 py-30">
       <div className="flex min-h-full w-full flex-col gap-10 bg-white">
         <div className="relative">
-          {/* Previous and next button's */}
+          {/* Navigation buttons for previous and next Pokémon */}
           <div className="flex h-24 w-full gap-1 uppercase">
+            {/* Previous Pokémon Button */}
             <a
               href={`/pokemon/${prev.name}`}
               className="flex flex-1/2 flex-col items-center bg-zinc-300 p-4 font-semibold duration-500 hover:bg-red-400 hover:text-white"
@@ -41,6 +57,7 @@ function Pokecard({ data }) {
               <h4 className="text-sm font-medium">N° {prev.id}</h4>
             </a>
 
+            {/* Next Pokémon Button */}
             <a
               href={`/pokemon/${next.name}`}
               className="flex flex-1/2 flex-col items-center bg-zinc-300 p-4 font-semibold duration-500 hover:bg-red-400 hover:text-white"
@@ -50,7 +67,7 @@ function Pokecard({ data }) {
             </a>
           </div>
 
-          {/* Pokemon name and pokedex number */}
+          {/* Pokémon Name and Pokédex Number */}
           <div className="absolute right-1/3 bottom-[-25px] mx-auto flex w-96 flex-col items-center justify-center rounded-t-2xl bg-white py-1 uppercase">
             <h1 className="text-2xl font-bold">{data.pokemon.name}</h1>
             <h2 className="text-xl font-semibold text-gray-500">
@@ -60,43 +77,58 @@ function Pokecard({ data }) {
         </div>
 
         <div className="flex h-96 w-full justify-center bg-white">
-          {/* Pokemon image */}
+          {/* Pokémon Image Section */}
           <div className="flex flex-1/2 justify-end p-2">
-            <PokeImg sprites={data.pokemon.sprites} name={data.pokemon.name} />
+            <PokeImg sprites={data.pokemon.sprites} name={data.pokemon.name} types={data.pokemon.types} />
           </div>
 
           {/* Pokémon Information Section */}
           <div className="flex w-full justify-start p-4 md:w-1/2">
             <div className="flex max-h-[75vh] w-full flex-col gap-4 overflow-y-auto rounded-2xl bg-white/80 p-4 shadow-lg backdrop-blur-md">
-              {/* Flavor Text */}
+              {/* Flavor Text - Short description about the Pokémon */}
               <p className="rounded-xl bg-gradient-to-r from-zinc-600 to-zinc-500 p-3 text-center text-white italic shadow">
                 {data.species.englishFlavor}
               </p>
 
-              {/* Type */}
+              {/* Pokémon Types */}
               <div className="flex items-center gap-3">
                 <h3 className="font-semibold text-zinc-700">Type:</h3>
                 <PokemonTypes types={data.pokemon.types} />
               </div>
 
-              {/* Height */}
+              {/* Pokémon Height (converted from decimetres to meters) */}
               <div className="flex items-center gap-3">
                 <h3 className="font-semibold text-zinc-700">Height:</h3>
                 <p className="text-zinc-800">{data.pokemon.height / 10} m</p>
               </div>
 
-              {/* Weight */}
+              {/* Pokémon Weight (converted from hectograms to kilograms) */}
               <div className="flex items-center gap-3">
                 <h3 className="font-semibold text-zinc-700">Weight:</h3>
                 <p className="text-zinc-800">{data.pokemon.weight / 10} kg</p>
               </div>
 
-              {/* Stats */}
+              {/* Pokémon Habitat */}
+              {data.species.habitat ? (
+                <div className="flex items-center gap-3">
+                  <h3 className="font-semibold text-zinc-700">Habitat:</h3>
+                  <p className="text-zinc-800 capitalize">
+                    {data.species.habitat.name}
+                  </p>
+                </div>
+              ) : null}
+
+              {/* Pokémon Base Stats (Radar Chart) */}
               <div className="rounded-xl bg-zinc-100 p-3 shadow-inner">
                 <h3 className="mb-2 text-center font-semibold text-zinc-700">
                   Base Stats
                 </h3>
                 <PokeStats stats={data.pokemon.stats} />
+              </div>
+
+              {/* Pokémon Evolution Chain */}
+              <div className="rounded-xl bg-zinc-100 p-3 shadow-inner">
+                <PokeEvolution url={data.species.evolutionChain} />
               </div>
             </div>
           </div>
