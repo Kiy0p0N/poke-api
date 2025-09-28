@@ -14,7 +14,9 @@ function PokeImg({ sprites, name, types }) {
   const typeName = types[0].type.name || "bg-zinc-100";
 
   return (
-    <div className={`relative w-96 rounded-2xl ${typeColors[typeName]}`}>
+    <div
+      className={`w-full md:w-5/6 rounded-2xl lg:w-96 ${typeColors[typeName]} flex justify-center`}
+    >
       <img
         // Toggles shiny state when clicked
         onClick={() => setShiny(!shiny)}
@@ -25,7 +27,7 @@ function PokeImg({ sprites, name, types }) {
             : sprites.other?.["official-artwork"]?.front_default
         }
         alt={name}
-        className="absolute bottom-[-30px] cursor-pointer object-cover drop-shadow-2xl drop-shadow-black"
+        className="cursor-pointer object-cover drop-shadow-2xl drop-shadow-black"
       />
     </div>
   );

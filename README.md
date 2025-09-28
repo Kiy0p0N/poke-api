@@ -7,9 +7,7 @@ This project is a simple web application that consumes the [PokéAPI](https://po
 It is currently in the early stages of development, focusing on learning how to work with APIs and React components.
 
 ## Features (Planned)
-- Search for Pokémon by name or ID
 - Save favorite to LocalStorage
-- Pokédex
 
 ## Tech Stack
 - **React** – Frontend framework  

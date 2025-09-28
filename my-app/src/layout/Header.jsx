@@ -1,28 +1,39 @@
-import { useState } from "react";
-import Pokeball from "../../public/pokeball.svg";
-import { motion, AnimatePresence } from "framer-motion";
+import PokeSearch from "../components/PokeSearch";
 
 function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [clickPos, setClickPos] = useState({ x: 0, y: 0 });
-
-  const handleClick = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setClickPos({
-      x: rect.left + rect.width / 2,
-      y: rect.top + rect.height / 2,
-    });
-    setIsOpen((prev) => !prev);
-  };
-
   return (
-    <header className="fixed flex h-12 w-full items-center justify-end px-3 z-40">
-      <img
-        src={Pokeball}
-        alt="Pokeball"
-        className="z-50 w-7 cursor-pointer duration-300 hover:w-7.5"
-        onClick={handleClick}
-      />
+    <header className="z-40 flex w-full flex-col items-center justify-center gap-3 p-3">
+      <div className="lg:w-1/2 w-full px-3">
+        <ul className="flex justify-between font-bold text-white uppercase">
+          <li>
+            <a
+              href="/"
+              className="duration-500 ease-in-out hover:scale-110 hover:text-red-400"
+            >
+              Home
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/pokedex "
+              className="duration-500 ease-in-out hover:scale-110 hover:text-red-400"
+            >
+              Pokédex
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/favorites"
+              className="duration-500 ease-in-out hover:scale-110 hover:text-red-400"
+            >
+              Favorites
+            </a>
+          </li>
+        </ul>
+      </div>
+      <PokeSearch />
     </header>
   );
 }

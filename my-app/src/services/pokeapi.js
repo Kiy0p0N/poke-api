@@ -14,6 +14,17 @@ export async function fetchPokemon(identifier) {
   return { pokemon, species };
 }
 
+export async function fetchAllPokemon() {
+  try {
+    const response = await axios.get(`${API_URL}?limit=1025`);
+    if (!response) throw new Error("Pokémon not found.");
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Pokémon:", error);
+    return null;
+  }
+}
+
 /**
  * Fetch a Pokémon by name or ID
  * @param {string|number} identifier - Pokémon name or ID

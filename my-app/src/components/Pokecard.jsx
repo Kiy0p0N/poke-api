@@ -43,11 +43,11 @@ function Pokecard({ data }) {
   }
 
   return (
-    <div className="z-10 h-screen w-full bg-zinc-800 px-40 py-30">
-      <div className="flex min-h-full w-full flex-col gap-10 bg-white">
+    <div className="w-full lg:px-30">
+      <div className="flex h-auto w-full flex-col gap-10 bg-white ">
         <div className="relative">
           {/* Navigation buttons for previous and next Pokémon */}
-          <div className="flex h-24 w-full gap-1 uppercase">
+          <div className="flex h-auto w-full gap-1 uppercase md:h-24">
             {/* Previous Pokémon Button */}
             <a
               href={`/pokemon/${prev.name}`}
@@ -68,7 +68,7 @@ function Pokecard({ data }) {
           </div>
 
           {/* Pokémon Name and Pokédex Number */}
-          <div className="absolute right-1/3 bottom-[-25px] mx-auto flex w-96 flex-col items-center justify-center rounded-t-2xl bg-white py-1 uppercase">
+          <div className="right-1/3 bottom-[-25px] mx-auto flex w-96 flex-col items-center justify-center rounded-t-2xl bg-white py-1 uppercase md:absolute">
             <h1 className="text-2xl font-bold">{data.pokemon.name}</h1>
             <h2 className="text-xl font-semibold text-gray-500">
               N° {data.pokemon.id}
@@ -76,15 +76,19 @@ function Pokecard({ data }) {
           </div>
         </div>
 
-        <div className="flex h-96 w-full justify-center bg-white">
+        <div className="block h-full w-full justify-center md:flex md:h-96">
           {/* Pokémon Image Section */}
-          <div className="flex flex-1/2 justify-end p-2">
-            <PokeImg sprites={data.pokemon.sprites} name={data.pokemon.name} types={data.pokemon.types} />
+          <div className="flex h-auto w-full justify-center p-2 md:flex-1/2 md:justify-end">
+            <PokeImg
+              sprites={data.pokemon.sprites}
+              name={data.pokemon.name}
+              types={data.pokemon.types}
+            />
           </div>
 
           {/* Pokémon Information Section */}
           <div className="flex w-full justify-start p-4 md:w-1/2">
-            <div className="flex max-h-[75vh] w-full flex-col gap-4 overflow-y-auto rounded-2xl bg-white/80 p-4 shadow-lg backdrop-blur-md">
+            <div className="flex w-full flex-col gap-4 overflow-y-auto rounded-2xl bg-white/80 p-4 shadow-lg backdrop-blur-md">
               {/* Flavor Text - Short description about the Pokémon */}
               <p className="rounded-xl bg-gradient-to-r from-zinc-600 to-zinc-500 p-3 text-center text-white italic shadow">
                 {data.species.englishFlavor}
