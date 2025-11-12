@@ -2,8 +2,8 @@ import PokeSearch from "../components/PokeSearch";
 
 function Header() {
   return (
-    <header className="z-40 flex w-full flex-col items-center justify-center gap-3 p-3">
-      <div className="lg:w-1/2 w-full px-3">
+    <header className="z-40 mb-8 flex w-full flex-col items-center justify-center gap-3 p-3">
+      <div className="w-full px-3 lg:w-1/2">
         <ul className="flex justify-between font-bold text-white uppercase">
           <li>
             <a

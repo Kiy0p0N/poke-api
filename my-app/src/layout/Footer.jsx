@@ -7,7 +7,7 @@ function Footer() {
           href="https://portfolio-1-0-steel.vercel.app/"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-red-400 duration-500 ease-in-out"
+          className="duration-500 ease-in-out hover:text-red-400"
         >
           Felipe
         </a>

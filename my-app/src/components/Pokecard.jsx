@@ -14,7 +14,6 @@ import PokeEvolution from "./PokeEvolution";
  * Also provides navigation to previous and next Pokémon.
  */
 function Pokecard({ data }) {
-  console.log(data);
 
   // State to store next and previous Pokémon data
   const [next, setNext] = useState(null);

@@ -92,7 +92,6 @@ export async function getEvolutions(url) {
     }
 
     extractEvolutions(data.chain);
-    console.log("Evolutions found:", evolutions);
 
     return evolutions;
   } catch (error) {
