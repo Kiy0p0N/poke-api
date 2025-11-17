@@ -4,12 +4,9 @@ function Header() {
   return (
     <header className="z-40 mb-8 flex w-full flex-col items-center justify-center gap-3 p-3">
       <div className="w-full px-3 lg:w-1/2">
-        <ul className="flex justify-between font-bold text-white uppercase">
+        <ul className="flex justify-between font-bold text-white uppercase text-sm lg:text-lg">
           <li>
-            <a
-              href="/"
-              className="duration-500 ease-in-out hover:scale-110 hover:text-red-400"
-            >
+            <a href="/" className="duration-500 ease-in-out hover:text-red-400">
               Home
             </a>
           </li>
@@ -17,16 +14,16 @@ function Header() {
           <li>
             <a
               href="/pokedex "
-              className="duration-500 ease-in-out hover:scale-110 hover:text-red-400"
+              className="duration-500 ease-in-out hover:text-red-400"
             >
-              Pokédex
+              Pokedex
             </a>
           </li>
 
           <li>
             <a
               href="/favorites"
-              className="duration-500 ease-in-out hover:scale-110 hover:text-red-400"
+              className="duration-500 ease-in-out hover:text-red-400"
             >
               Favorites
             </a>

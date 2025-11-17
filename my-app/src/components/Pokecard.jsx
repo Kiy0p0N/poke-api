@@ -42,18 +42,18 @@ function Pokecard({ data }) {
   }
 
   return (
-    <div className="w-full lg:px-30">
-      <div className="flex h-auto w-full flex-col gap-10 bg-white ">
-        <div className="relative">
+    <div className="w-full flex justify-center lg:px-30">
+      <div className="flex h-auto w-14/15 flex-col bg-white ">
+        <div className="flex flex-col">
           {/* Navigation buttons for previous and next Pokémon */}
-          <div className="flex h-auto w-full gap-1 uppercase md:h-24">
+          <div className="flex h-auto w-full gap-1 uppercase">
             {/* Previous Pokémon Button */}
             <a
               href={`/pokemon/${prev.name}`}
               className="flex flex-1/2 flex-col items-center bg-zinc-300 p-4 font-semibold duration-500 hover:bg-red-400 hover:text-white"
             >
-              <h3 className="text-lg font-semibold">{prev.name}</h3>
-              <h4 className="text-sm font-medium">N° {prev.id}</h4>
+              <h3 className="text-sm font-bold">{prev.name}</h3>
+              <h4 className="text-[12px] font-medium text-zinc-500">N° {prev.id}</h4>
             </a>
 
             {/* Next Pokémon Button */}
@@ -61,13 +61,13 @@ function Pokecard({ data }) {
               href={`/pokemon/${next.name}`}
               className="flex flex-1/2 flex-col items-center bg-zinc-300 p-4 font-semibold duration-500 hover:bg-red-400 hover:text-white"
             >
-              <h3 className="text-lg font-semibold">{next.name}</h3>
-              <h4 className="text-sm font-medium">N° {next.id}</h4>
+              <h3 className="text-sm font-bold">{next.name}</h3>
+              <h4 className="text-[12px] font-medium text-zinc-500">N° {next.id}</h4>
             </a>
           </div>
 
           {/* Pokémon Name and Pokédex Number */}
-          <div className="right-1/3 bottom-[-25px] mx-auto flex w-96 flex-col items-center justify-center rounded-t-2xl bg-white py-1 uppercase md:absolute">
+          <div className="flex w-full flex-col items-center justify-center uppercase">
             <h1 className="text-2xl font-bold">{data.pokemon.name}</h1>
             <h2 className="text-xl font-semibold text-gray-500">
               N° {data.pokemon.id}
@@ -90,7 +90,7 @@ function Pokecard({ data }) {
             <div className="flex w-full flex-col gap-4 overflow-y-auto rounded-2xl bg-white/80 p-4 shadow-lg backdrop-blur-md">
               {/* Flavor Text - Short description about the Pokémon */}
               <p className="rounded-xl bg-gradient-to-r from-zinc-600 to-zinc-500 p-3 text-center text-white italic shadow">
-                {data.species.englishFlavor}
+                "{data.species.englishFlavor}"
               </p>
 
               {/* Pokémon Types */}

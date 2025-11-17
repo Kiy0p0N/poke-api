@@ -43,7 +43,7 @@ function PokePrev({ name }) {
   return (
     <div
       onClick={() => navigate(`/pokemon/${pokemon.name}`)}
-      className="h-auto w-46 md:w-56 cursor-pointer rounded-lg bg-white p-3 duration-500 ease-in-out hover:scale-105"
+      className="h-auto w-24 md:w-44 cursor-pointer rounded-lg bg-white p-3 duration-500 ease-in-out hover:scale-105"
     >
       <div className="w-full bg-zinc-100 rounded-lg flex items-center justify-center relative">
         {/* Placeholder shimmer effect while loading */}
@@ -67,8 +67,8 @@ function PokePrev({ name }) {
       </div>
 
       <div className="w-full flex items-center flex-col uppercase">
-        <h1 className="font-bold">{pokemon.name}</h1>
-        <h2 className="font-semibold text-zinc-500">N° {pokemon.id}</h2>
+        <h1 className="font-bold text-[10px] md:text-sm">{pokemon.name}</h1>
+        <h2 className="font-semibold text-zinc-500 text-[8px] md:text-[12px]">N° {pokemon.id}</h2>
       </div>
     </div>
   );

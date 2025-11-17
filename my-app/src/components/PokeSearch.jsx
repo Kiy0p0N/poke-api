@@ -80,7 +80,7 @@ function PokeSearch() {
   }
 
   return (
-    <div className="absolute top-12 w-full md:w-96">
+    <div className="absolute top-12 w-11/12 md:w-96">
       {/* Search container */}
       <div className="relative w-full rounded-2xl bg-white shadow-md ring-1 ring-zinc-200 transition duration-300 focus-within:ring-2 focus-within:ring-red-400">
         <div className="flex">
