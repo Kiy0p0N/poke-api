@@ -2,31 +2,36 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Pokeball from "../../public/pokeball.svg";
 import { fetchAllPokemon } from "../services/pokeapi";
+import { Search, X } from "lucide-react";
 
 function PokeSearch() {
   const navigate = useNavigate();
 
-  // State for user input (search query)
+  // User input (search query)
   const [query, setQuery] = useState("");
 
-  // State holding the entire Pokédex fetched from API
+  // Full Pokédex list retrieved from the API
   const [pokedex, setPokedex] = useState([]);
 
-  // State holding Pokémon filtered based on user input
+  // Filtered Pokémon list based on user input
   const [filtered, setFiltered] = useState([]);
 
-  // Controls if the input field is focused
+  // Controls whether the input is focused (suggestions only show on focus)
   const [isFocused, setIsFocused] = useState(false);
 
-  // Fetch all Pokémon names on initial render
+  // Controls opening/closing of the search overlay modal
+  const [openSearch, setOpenSearch] = useState(false);
+
+  /**
+   * Initial fetch: load all Pokémon only once.
+   * The API returns results inside "results", so we ensure it's always an array.
+   */
   useEffect(() => {
     async function fetchAllData() {
       const response = await fetchAllPokemon();
-
-      // Ensure the data structure is always an array
       const pokemonList = Array.isArray(response)
         ? response
-        : response.results || [];
+        : response?.results || [];
 
       setPokedex(pokemonList);
     }
@@ -34,104 +39,129 @@ function PokeSearch() {
     fetchAllData();
   }, []);
 
-  // Filter Pokémon names dynamically as the user types
+  /**
+   * Filters Pokémon in real time as the user types.
+   * - Only includes Pokémon whose names start with the typed text.
+   * - Clears suggestions if input is empty.
+   * - Displays a special "not_found" marker if no match is found.
+   */
   useEffect(() => {
-    if (!pokedex || pokedex.length === 0) return;
+    if (!pokedex.length) return;
 
-    // When input is empty, clear suggestions
-    if (!query.trim()) {
+    const text = query.trim().toLowerCase();
+
+    // If the user erased the input, clear suggestions
+    if (!text) {
       setFiltered([]);
       return;
     }
 
-    // Filter only Pokémon whose name starts with the entered text
-    const filteredResults = pokedex.filter((pokemon) =>
-      pokemon.name.toLowerCase().startsWith(query.toLowerCase()),
+    // Filter Pokémon by matching the first letters only
+    const filteredResults = pokedex.filter((p) =>
+      p.name.toLowerCase().startsWith(text),
     );
 
-    // If no Pokémon found, display a special marker object
-    if (filteredResults.length === 0) {
+    // If no Pokémon matches the query
+    if (!filteredResults.length) {
       setFiltered([{ name: "not_found" }]);
       return;
     }
 
-    // Limit to first 8 suggestions for better UX
+    // Limit results to 8 for a cleaner UX
     setFiltered(filteredResults.slice(0, 8));
   }, [query, pokedex]);
 
-  // Navigate to Pokémon details page
+  // Executes the search and navigates to the Pokémon details page
   function handleSearch() {
     if (!query.trim()) return;
     navigate(`/pokemon/${query.toLowerCase()}`);
+    setOpenSearch(!openSearch);
   }
 
-  // Allow pressing Enter to trigger search
+  // Allows pressing Enter to trigger search
   function handleKeyDown(e) {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
+    if (e.key === "Enter") handleSearch();
   }
 
-  // Handle click on a suggestion
+  // Handles clicking on a suggestion item
   function handleSuggestionClick(name) {
     if (name === "not_found") return;
     setQuery(name);
     navigate(`/pokemon/${name.toLowerCase()}`);
+    setOpenSearch(!openSearch);
   }
 
   return (
-    <div className="absolute top-12 w-11/12 md:w-96">
-      {/* Search container */}
-      <div className="relative w-full rounded-2xl bg-white shadow-md ring-1 ring-zinc-200 transition duration-300 focus-within:ring-2 focus-within:ring-red-400">
-        <div className="flex">
-          {/* Pokéball icon (rotates slightly when focused) */}
-          <img
-            src={Pokeball}
-            alt="Pokeball"
-            className="ml-3 w-6 opacity-70 transition duration-300 group-focus-within:rotate-180"
-          />
+    <>
+      {/* Search button (opens the modal/search overlay) */}
+      <Search
+        onClick={() => setOpenSearch(!openSearch)}
+        className="cursor-pointer duration-500 ease-in-out hover:text-red-400"
+      />
 
-          {/* Search input */}
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={handleKeyDown}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setTimeout(() => setIsFocused(false), 150)}
-            placeholder="Search Pokémon..."
-            className="w-full bg-transparent px-3 py-2 text-zinc-700 placeholder:text-zinc-400 focus:outline-none"
-          />
+      {openSearch ? (
+        <div className="fixed inset-0 flex h-screen w-screen flex-col items-center justify-start bg-zinc-950/95 p-4">
+          {/* Close button */}
+          <div className="mb-6 flex w-full justify-end">
+            <X
+              onClick={() => setOpenSearch(!openSearch)}
+              className="cursor-pointer text-white duration-500 ease-in-out hover:text-red-400"
+            />
+          </div>
+
+          {/* Search bar wrapper (centered) */}
+          <div className="flex w-full justify-center">
+            <div className="relative w-full max-w-md rounded-2xl bg-white shadow-md ring-1 ring-zinc-200 transition duration-300 focus-within:ring-2 focus-within:ring-red-400">
+              <div className="flex">
+                {/* Pokéball icon */}
+                <img
+                  src={Pokeball}
+                  alt="Pokeball"
+                  className="ml-3 w-6 opacity-70 transition duration-300 group-focus-within:rotate-180"
+                />
+
+                {/* Search input field */}
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  onFocus={() => setIsFocused(true)}
+                  onBlur={() => setTimeout(() => setIsFocused(false), 120)}
+                  placeholder="Search Pokémon..."
+                  className="w-full bg-transparent px-3 py-2 text-zinc-700 placeholder:text-zinc-400 focus:outline-none"
+                />
+              </div>
+
+              {/* Suggestions dropdown (visible only when focused and query exists) */}
+              {isFocused && query && (
+                <ul className="absolute right-0 left-0 z-50 mt-1 max-h-60 overflow-y-auto rounded-b-2xl bg-white shadow-lg ring-1 ring-zinc-200">
+                  {filtered.map((pokemon) =>
+                    pokemon.name === "not_found" ? (
+                      <li
+                        key="not-found"
+                        className="px-4 py-2 text-zinc-500 select-none"
+                      >
+                        Pokémon not found
+                      </li>
+                    ) : (
+                      <li
+                        key={pokemon.name}
+                        onMouseDown={() => handleSuggestionClick(pokemon.name)}
+                        className="cursor-pointer px-4 py-2 text-zinc-700 transition-colors hover:bg-red-100"
+                      >
+                        {pokemon.name.charAt(0).toUpperCase() +
+                          pokemon.name.slice(1)}
+                      </li>
+                    ),
+                  )}
+                </ul>
+              )}
+            </div>
+          </div>
         </div>
-
-        {/* Suggestion dropdown (visible only if focused and results exist) */}
-        {isFocused && query && (
-          <ul className="absolute right-0 left-0 z-50 mt-1 max-h-60 overflow-y-auto rounded-b-2xl bg-white shadow-lg ring-1 ring-zinc-200">
-            {filtered.length > 0
-              ? filtered.map((pokemon) =>
-                  pokemon.name === "not_found" ? (
-                    <li
-                      key="not-found"
-                      className="px-4 py-2 text-zinc-500 select-none"
-                    >
-                      Pokémon not found
-                    </li>
-                  ) : (
-                    <li
-                      key={pokemon.name}
-                      onMouseDown={() => handleSuggestionClick(pokemon.name)}
-                      className="cursor-pointer px-4 py-2 text-zinc-700 transition-colors hover:bg-red-100"
-                    >
-                      {pokemon.name.charAt(0).toUpperCase() +
-                        pokemon.name.slice(1)}
-                    </li>
-                  ),
-                )
-              : null}
-          </ul>
-        )}
-      </div>
-    </div>
+      ) : null}
+    </>
   );
 }
 

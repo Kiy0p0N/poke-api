@@ -14,7 +14,6 @@ import PokeEvolution from "./PokeEvolution";
  * Also provides navigation to previous and next Pokémon.
  */
 function Pokecard({ data }) {
-
   // State to store next and previous Pokémon data
   const [next, setNext] = useState(null);
   const [prev, setPrev] = useState(null);
@@ -42,8 +41,8 @@ function Pokecard({ data }) {
   }
 
   return (
-    <div className="w-full flex justify-center lg:px-30">
-      <div className="flex h-auto w-14/15 flex-col bg-white ">
+    <div className="mt-20 flex w-full justify-center lg:px-30">
+      <div className="flex h-auto w-14/15 flex-col bg-white">
         <div className="flex flex-col">
           {/* Navigation buttons for previous and next Pokémon */}
           <div className="flex h-auto w-full gap-1 uppercase">
@@ -53,7 +52,9 @@ function Pokecard({ data }) {
               className="flex flex-1/2 flex-col items-center bg-zinc-300 p-4 font-semibold duration-500 hover:bg-red-400 hover:text-white"
             >
               <h3 className="text-sm font-bold">{prev.name}</h3>
-              <h4 className="text-[12px] font-medium text-zinc-500">N° {prev.id}</h4>
+              <h4 className="text-[12px] font-medium text-zinc-500">
+                N° {prev.id}
+              </h4>
             </a>
 
             {/* Next Pokémon Button */}
@@ -62,7 +63,9 @@ function Pokecard({ data }) {
               className="flex flex-1/2 flex-col items-center bg-zinc-300 p-4 font-semibold duration-500 hover:bg-red-400 hover:text-white"
             >
               <h3 className="text-sm font-bold">{next.name}</h3>
-              <h4 className="text-[12px] font-medium text-zinc-500">N° {next.id}</h4>
+              <h4 className="text-[12px] font-medium text-zinc-500">
+                N° {next.id}
+              </h4>
             </a>
           </div>
 
