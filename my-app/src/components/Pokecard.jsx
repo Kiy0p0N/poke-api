@@ -4,6 +4,7 @@ import PokemonTypes from "./PokemonTypes";
 import PokeImg from "./PokeImg";
 import PokeStats from "./PokeStats";
 import PokeEvolution from "./PokeEvolution";
+import FavoriteButton from "./FavoriteButton";
 
 /**
  * Pokecard Component
@@ -140,6 +141,8 @@ function Pokecard({ data }) {
           </div>
         </div>
       </div>
+
+      <FavoriteButton pokemonName={data.pokemon.name} />
     </div>
   );
 }

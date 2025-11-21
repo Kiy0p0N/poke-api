@@ -1,8 +1,11 @@
 import Logo from "../components/Logo";
 import PokeSearch from "../components/PokeSearch";
-import { House, List, Star } from "lucide-react";
+import { House, List, Heart } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 function Header() {
+  const location = useLocation();
+  console.log(location);
   return (
     // Main header container, fixed at the top of the screen
     <header className="fixed z-40 flex w-full items-center justify-center bg-zinc-800 py-3 md:px-3">
@@ -42,7 +45,7 @@ function Header() {
                 href="/favorites"
                 className="duration-500 ease-in-out hover:text-red-400"
               >
-                <Star />
+                <Heart />
               </a>
             </li>
           </ul>

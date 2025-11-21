@@ -57,7 +57,7 @@ function Pokedex() {
       </div>
 
       {/* Pokémon Grid */}
-      <div className="grid w-full grid-cols-3 gap-3 p-3 md:grid-cols-4 lg:flex lg:w-5/6 lg:flex-wrap lg:justify-around">
+      <div className="grid w-full grid-cols-3 gap-3 p-3 md:grid-cols-4 lg:flex lg:w-5/6 lg:flex-wrap lg:justify-center">
         {pokedex.map((pokemon, index) => (
           // Renders a Pokémon preview card (name is passed to the component)
           <PokePrev key={index} name={pokemon.name} />

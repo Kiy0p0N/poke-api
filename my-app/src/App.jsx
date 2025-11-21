@@ -5,22 +5,23 @@ import Footer from "./layout/Footer";
 import Hero from "./pages/Hero";
 import Pokemon from "./pages/Pokemon";
 import Pokedex from "./pages/Pokedex";
+import Favorites from "./pages/Favorites";
 
 function App() {
-
   return (
-    <div className="w-screen min-h-screen bg-zinc-800 flex flex-col justify-between gap-5">
+    <div className="flex min-h-screen w-screen flex-col justify-between gap-5 bg-zinc-800">
       <Header />
 
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route path="/pokemon/:name" element={<Pokemon />} />
         <Route path="/pokedex" element={<Pokedex />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
 
       <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

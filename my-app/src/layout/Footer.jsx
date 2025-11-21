@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="flex w-full items-center justify-center border-t-2 border-white py-4">
+    <footer className="flex w-full items-center justify-center border-t-1 border-white py-4">
       <p className="text-white">
         Desenvolvido por{" "}
         <a
